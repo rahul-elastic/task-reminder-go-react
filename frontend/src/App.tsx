@@ -35,11 +35,12 @@ function App() {
     }
   }, [])
 
-  async function handleCreate(title: string, description: string) {
+  async function handleCreate(title: string, description: string, dueAt?: string) {
     setError(null)
     const created = await tasksApi.create({
       title,
       description: description || undefined,
+      dueAt: dueAt || undefined,
     })
     setTasks((prev) => [...prev, created])
   }
