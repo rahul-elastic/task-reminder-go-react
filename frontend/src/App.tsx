@@ -3,6 +3,8 @@ import { tasksApi } from './api/tasks'
 import { TaskForm } from './components/TaskForm'
 import { TaskList } from './components/TaskList'
 import { TaskFilter, type FilterState } from './components/TaskFilter'
+import { DarkModeToggle } from './components/DarkModeToggle'
+import { useDarkMode } from './hooks/useDarkMode'
 import type { Task } from './types/task'
 import './App.css'
 
@@ -11,6 +13,7 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [filter, setFilter] = useState<FilterState>({ search: '', status: 'all' })
+  const { isDark, toggle: toggleDarkMode } = useDarkMode()
 
   useEffect(() => {
     let cancelled = false
@@ -89,8 +92,13 @@ function App() {
   return (
     <div className="app">
       <header className="app__header">
-        <h1>Task Reminder</h1>
-        <p>Capture tasks, mark them done, clear them out.</p>
+        <div className="app__header__top">
+          <div>
+            <h1>Task Reminder</h1>
+            <p>Capture tasks, mark them done, clear them out.</p>
+          </div>
+          <DarkModeToggle isDark={isDark} onToggle={toggleDarkMode} />
+        </div>
       </header>
 
       <main className="app__main">

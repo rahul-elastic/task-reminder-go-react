@@ -8,6 +8,13 @@
   margin-bottom: 2rem;
 }
 
+.app__header__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
 .app__header h1 {
   margin: 0 0 0.35rem;
   font-family: 'Fraunces', Georgia, serif;
@@ -221,4 +228,35 @@
   background: var(--danger-soft);
   color: var(--danger);
   font-size: 0.95rem;
+}
+
+.dark-mode-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.dark-mode-toggle:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.dark-mode-toggle:active {
+  transform: scale(0.95);
+}
+
+.dark-mode-toggle__icon {
+  display: block;
+  line-height: 1;
 }

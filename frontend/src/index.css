@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Source+Sans+3:wght@400;600&display=swap');
 
 :root {
+  /* Light mode (default) */
   --ink: #1c1917;
   --muted: #78716c;
   --line: #e7e5e4;
@@ -22,6 +23,20 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+[data-theme="dark"] {
+  --ink: #f5f5f4;
+  --muted: #a8a29e;
+  --line: #44403c;
+  --surface: rgba(28, 25, 23, 0.6);
+  --accent: #14b8a6;
+  --accent-hover: #2dd4bf;
+  --accent-soft: rgba(20, 184, 166, 0.15);
+  --danger: #fca5a5;
+  --danger-soft: rgba(252, 165, 165, 0.1);
+  --bg-top: #1a1a1a;
+  --bg-bottom: #2a2a2a;
+}
+
 *,
 *::before,
 *::after {
@@ -34,6 +49,14 @@ body {
   background:
     radial-gradient(ellipse 80% 50% at 10% -10%, rgba(45, 212, 191, 0.22), transparent),
     radial-gradient(ellipse 60% 40% at 100% 0%, rgba(13, 148, 136, 0.12), transparent),
+    linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
+  transition: background 0.3s ease;
+}
+
+[data-theme="dark"] body {
+  background:
+    radial-gradient(ellipse 80% 50% at 10% -10%, rgba(20, 184, 166, 0.08), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 0%, rgba(20, 184, 166, 0.04), transparent),
     linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
 }
 
