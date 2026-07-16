@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { tasksApi } from './api/tasks'
 import { TaskForm } from './components/TaskForm'
 import { TaskList } from './components/TaskList'
+import { TaskFilter, type FilterState } from './components/TaskFilter'
 import type { Task } from './types/task'
 import './App.css'
 
@@ -9,6 +10,7 @@ function App() {
   const [tasks, setTasks] = useState<Task[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [filter, setFilter] = useState<FilterState>({ search: '', status: 'all' })
 
   useEffect(() => {
     let cancelled = false
@@ -67,6 +69,23 @@ function App() {
 
   const remaining = tasks.filter((t) => !t.completed).length
 
+  // Filter and search tasks
+  const filteredTasks = tasks.filter((task) => {
+    // Status filter
+    if (filter.status === 'open' && task.completed) return false
+    if (filter.status === 'completed' && !task.completed) return false
+
+    // Search filter
+    if (filter.search.trim()) {
+      const query = filter.search.toLowerCase()
+      const matchesTitle = task.title.toLowerCase().includes(query)
+      const matchesDescription = task.description?.toLowerCase().includes(query)
+      if (!matchesTitle && !matchesDescription) return false
+    }
+
+    return true
+  })
+
   return (
     <div className="app">
       <header className="app__header">
@@ -88,7 +107,8 @@ function App() {
                 {remaining} open · {tasks.length} total
               </span>
             </div>
-            <TaskList tasks={tasks} onToggle={handleToggle} onDelete={handleDelete} />
+            <TaskFilter filter={filter} onChange={setFilter} />
+            <TaskList tasks={filteredTasks} onToggle={handleToggle} onDelete={handleDelete} />
           </>
         )}
       </main>
